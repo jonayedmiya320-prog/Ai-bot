@@ -62,10 +62,38 @@ class Bot:
         return {"inline_keyboard": rows}
 
     def admin_text(self, cfg):
-        return "\u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\n\u099a\u09be\u09b2\u09c1 \u09ae\u09a1\u09c7\u09b2: %s\n\u09ae\u09cb\u099f \u0987\u0989\u099c\u09be\u09b0: %d\n\n\u0993\u09af\u09bc\u09c7\u09ac \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2: /panel\n\u09a8\u09a4\u09c1\u09a8 \u09ae\u09a1\u09c7\u09b2 \u09a6\u09bf\u09a4\u09c7: /setmodel \u09ae\u09a1\u09c7\u09b2\u09c7\u09b0_\u09a8\u09be\u09ae" % (
+        up = llm.ollama_up(cfg)
+        t = "\u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\n\u099a\u09be\u09b2\u09c1 \u09ae\u09a1\u09c7\u09b2: %s\nOllama: %s\n\u09ae\u09cb\u099f \u0987\u0989\u099c\u09be\u09b0: %d" % (
             cfg["active_model"],
+            "\u099a\u09be\u09b2\u09c1 \u2705" if up else "\u09ac\u09a8\u09cd\u09a7 \u274c",
             memory.count(),
         )
+        if llm.LAST_ERROR.get("text"):
+            t += "\n\n\u26a0\ufe0f \u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u09a4\u09cd\u09b0\u09c1\u099f\u09bf:\n" + llm.LAST_ERROR["text"][:400]
+        t += "\n\n\u0993\u09af\u09bc\u09c7\u09ac \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2: /panel\n\u09a8\u09a4\u09c1\u09a8 \u09ae\u09a1\u09c7\u09b2 \u09a6\u09bf\u09a4\u09c7: /setmodel \u09ae\u09a1\u09c7\u09b2\u09c7\u09b0_\u09a8\u09be\u09ae"
+        return t
+
+    def activate(self, cfg, model):
+        """\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u09a5\u09be\u0995\u09b2\u09c7 \u099a\u09be\u09b2\u09c1 \u0995\u09b0\u09c7, \u09a8\u09be \u09a5\u09be\u0995\u09b2\u09c7 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09b6\u09c1\u09b0\u09c1 \u0995\u09b0\u09c7 (\u09b6\u09c7\u09b7 \u09b9\u09b2\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7)\u0964"""
+        if model in llm.installed(cfg):
+            config.update(active_model=model)
+            return "\u099a\u09be\u09b2\u09c1 \u09b9\u09af\u09bc\u09c7\u099b\u09c7: " + model
+        llm.pull(cfg, model, activate=True)
+        return "\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09a8\u09c7\u0987, \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09b6\u09c1\u09b0\u09c1 \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u09b6\u09c7\u09b7 \u09b9\u09b2\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7\u0964 \u0985\u09ac\u09b8\u09cd\u09a5\u09be \u09a6\u09c7\u0996\u09a4\u09c7 /panel"
+
+    _last_notify = 0
+
+    def notify_admins(self, cfg):
+        now = time.time()
+        if now - Bot._last_notify < 600:
+            return
+        Bot._last_notify = now
+        err = llm.LAST_ERROR.get("text", "")
+        for aid in cfg.get("admin_ids", []):
+            try:
+                self.send(int(aid), "\u26a0\ufe0f \u0987\u0989\u099c\u09be\u09b0\u0995\u09c7 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09c7\u0993\u09af\u09bc\u09be \u09af\u09be\u099a\u09cd\u099b\u09c7 \u09a8\u09be\u0964 \u0995\u09be\u09b0\u09a3:\n" + err)
+            except Exception:
+                pass
 
     # ---------- reply splitting ----------
     @staticmethod
@@ -129,8 +157,8 @@ class Bot:
                     models = list(cfg["models"])
                     if arg not in models:
                         models.append(arg)
-                    cfg = config.update(active_model=arg, models=models)
-                    self.send(chat_id, "\u09ae\u09a1\u09c7\u09b2 \u09b8\u09c7\u099f \u09b9\u09af\u09bc\u09c7\u099b\u09c7: " + arg)
+                    cfg = config.update(models=models)
+                    self.send(chat_id, self.activate(cfg, arg))
                     return
             return
 
@@ -157,6 +185,7 @@ class Bot:
                 ok = True
             except Exception as e:
                 print("llm error:", e)
+                self.notify_admins(cfg)
                 reply = cfg["error_text"]
                 ok = False
             finally:
@@ -189,8 +218,9 @@ class Bot:
             except Exception:
                 self.api("answerCallbackQuery", callback_query_id=cb["id"], text="\u09ad\u09c1\u09b2 \u09ae\u09a1\u09c7\u09b2")
                 return
-            cfg = config.update(active_model=model)
-            self.api("answerCallbackQuery", callback_query_id=cb["id"], text="\u099a\u09be\u09b2\u09c1: " + model)
+            note = self.activate(cfg, model)
+            cfg = config.load()
+            self.api("answerCallbackQuery", callback_query_id=cb["id"], text=note[:190])
             m = cb.get("message", {})
             self.api(
                 "editMessageText",
