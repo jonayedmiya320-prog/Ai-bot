@@ -52,7 +52,7 @@ class Bot:
     def admin_markup(self, cfg):
         rows, row = [], []
         for i, m in enumerate(cfg["models"]):
-            label = ("тЬЕ " if m == cfg["active_model"] else "") + m
+            label = ("\u2705 " if m == cfg["active_model"] else "") + m
             row.append({"text": label, "callback_data": "m:%d" % i})
             if len(row) == 2:
                 rows.append(row)
@@ -62,7 +62,7 @@ class Bot:
         return {"inline_keyboard": rows}
 
     def admin_text(self, cfg):
-        return "ржПржбржорж┐ржи ржкрзНржпрж╛ржирзЗрж▓\nржЪрж╛рж▓рзБ ржоржбрзЗрж▓: %s\nржорзЛржЯ ржЗржЙржЬрж╛рж░: %d\n\nржУржпрж╝рзЗржм ржкрзНржпрж╛ржирзЗрж▓: /panel\nржирждрзБржи ржоржбрзЗрж▓ ржжрж┐рждрзЗ: /setmodel ржоржбрзЗрж▓рзЗрж░_ржирж╛ржо" % (
+        return "\u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\n\u099a\u09be\u09b2\u09c1 \u09ae\u09a1\u09c7\u09b2: %s\n\u09ae\u09cb\u099f \u0987\u0989\u099c\u09be\u09b0: %d\n\n\u0993\u09af\u09bc\u09c7\u09ac \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2: /panel\n\u09a8\u09a4\u09c1\u09a8 \u09ae\u09a1\u09c7\u09b2 \u09a6\u09bf\u09a4\u09c7: /setmodel \u09ae\u09a1\u09c7\u09b2\u09c7\u09b0_\u09a8\u09be\u09ae" % (
             cfg["active_model"],
             memory.count(),
         )
@@ -72,7 +72,7 @@ class Bot:
     def split_reply(text):
         parts = [p.strip() for p in re.split(r"\n+", text) if p.strip()]
         if len(parts) <= 1:
-            sentences = [s.strip() for s in re.split(r"(?<=[ред?!])\s+", text) if s.strip()]
+            sentences = [s.strip() for s in re.split(r"(?<=[\u0964?!])\s+", text) if s.strip()]
             if len(sentences) > 2:
                 half = (len(sentences) + 1) // 2
                 parts = [" ".join(sentences[:half]), " ".join(sentences[half:])]
@@ -105,7 +105,7 @@ class Bot:
                 return
             if cmd == "/reset":
                 memory.reset(uid)
-                self.send(chat_id, "ржарж┐ржХ ржЖржЫрзЗ, ржирждрзБржи ржХрж░рзЗ рж╢рзБрж░рзБ ржХрж░рж┐ ЁЯЩВ")
+                self.send(chat_id, "\u09a0\u09bf\u0995 \u0986\u099b\u09c7, \u09a8\u09a4\u09c1\u09a8 \u0995\u09b0\u09c7 \u09b6\u09c1\u09b0\u09c1 \u0995\u09b0\u09bf \U0001f642")
                 return
             if self.is_admin(cfg, uid):
                 if cmd in ("/admin", "/model"):
@@ -117,11 +117,11 @@ class Bot:
                         try:
                             ip = requests.get("https://api.ipify.org", timeout=5).text.strip()
                         except Exception:
-                            ip = "рж╕рж╛рж░рзНржнрж╛рж░_ржЖржЗржкрж┐"
+                            ip = "\u09b8\u09be\u09b0\u09cd\u09ad\u09be\u09b0_\u0986\u0987\u09aa\u09bf"
                         base = "http://%s:%s" % (ip, cfg["panel_port"])
                     self.send(
                         chat_id,
-                        "ржкрзНржпрж╛ржирзЗрж▓рзЗрж░ рж▓рж┐ржВржХ (рзл ржорж┐ржирж┐ржЯ ржЪрж▓ржмрзЗ, ржПржХржмрж╛рж░ржЗ ржХрж╛ржЬ ржХрж░ржмрзЗ):\n%s/auth/%s" % (base, auth.create()),
+                        "\u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\u09c7\u09b0 \u09b2\u09bf\u0982\u0995 (\u09eb \u09ae\u09bf\u09a8\u09bf\u099f \u099a\u09b2\u09ac\u09c7, \u098f\u0995\u09ac\u09be\u09b0\u0987 \u0995\u09be\u099c \u0995\u09b0\u09ac\u09c7):\n%s/auth/%s" % (base, auth.create()),
                     )
                     return
                 if cmd == "/setmodel" and arg:
@@ -129,7 +129,7 @@ class Bot:
                     if arg not in models:
                         models.append(arg)
                     cfg = config.update(active_model=arg, models=models)
-                    self.send(chat_id, "ржоржбрзЗрж▓ рж╕рзЗржЯ рж╣ржпрж╝рзЗржЫрзЗ: " + arg)
+                    self.send(chat_id, "\u09ae\u09a1\u09c7\u09b2 \u09b8\u09c7\u099f \u09b9\u09af\u09bc\u09c7\u099b\u09c7: " + arg)
                     return
             return
 
@@ -178,7 +178,7 @@ class Bot:
         cfg = config.load()
         uid = cb.get("from", {}).get("id")
         if not self.is_admin(cfg, uid):
-            self.api("answerCallbackQuery", callback_query_id=cb["id"], text="ржЕржирзБржорждрж┐ ржирзЗржЗ")
+            self.api("answerCallbackQuery", callback_query_id=cb["id"], text="\u0985\u09a8\u09c1\u09ae\u09a4\u09bf \u09a8\u09c7\u0987")
             return
         data = cb.get("data", "")
         if data.startswith("m:"):
@@ -186,10 +186,10 @@ class Bot:
                 idx = int(data[2:])
                 model = cfg["models"][idx]
             except Exception:
-                self.api("answerCallbackQuery", callback_query_id=cb["id"], text="ржнрзБрж▓ ржоржбрзЗрж▓")
+                self.api("answerCallbackQuery", callback_query_id=cb["id"], text="\u09ad\u09c1\u09b2 \u09ae\u09a1\u09c7\u09b2")
                 return
             cfg = config.update(active_model=model)
-            self.api("answerCallbackQuery", callback_query_id=cb["id"], text="ржЪрж╛рж▓рзБ: " + model)
+            self.api("answerCallbackQuery", callback_query_id=cb["id"], text="\u099a\u09be\u09b2\u09c1: " + model)
             m = cb.get("message", {})
             self.api(
                 "editMessageText",
@@ -212,7 +212,7 @@ class Bot:
     def run(self):
         self.api("deleteWebhook")
         offset = 0
-        print("ржмржЯ ржЪрж╛рж▓рзБ рж╣ржпрж╝рзЗржЫрзЗ...")
+        print("\u09ac\u099f \u099a\u09be\u09b2\u09c1 \u09b9\u09af\u09bc\u09c7\u099b\u09c7...")
         while True:
             try:
                 r = requests.post(
