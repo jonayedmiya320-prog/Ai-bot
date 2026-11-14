@@ -122,6 +122,7 @@ class Bot:
                     self.send(
                         chat_id,
                         "\u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\u09c7\u09b0 \u09b2\u09bf\u0982\u0995 (\u09eb \u09ae\u09bf\u09a8\u09bf\u099f \u099a\u09b2\u09ac\u09c7, \u098f\u0995\u09ac\u09be\u09b0\u0987 \u0995\u09be\u099c \u0995\u09b0\u09ac\u09c7):\n%s/auth/%s" % (base, auth.create()),
+                        link_preview_options={"is_disabled": True},
                     )
                     return
                 if cmd == "/setmodel" and arg:
