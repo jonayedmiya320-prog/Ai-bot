@@ -1,0 +1,12 @@
+[Unit]
+Description=Mariyam Telegram Bot
+After=network.target ollama.service
+
+[Service]
+WorkingDirectory=/root/mariyam_bot
+ExecStart=/root/mariyam_bot/venv/bin/python main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
