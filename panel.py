@@ -49,6 +49,10 @@ a{color:#93c5fd}
   <div style="float:right"><a href="/logout">\u09b2\u0997\u0986\u0989\u099f</a></div>
 </div>
 
+{% if msg %}<div class="card" style="border:1px solid #22c55e">{{ msg }}</div>{% endif %}
+{% if cfg.active_model not in inst %}<div class="card" style="border:1px solid #dc2626">\u26a0\ufe0f \u099a\u09be\u09b2\u09c1 \u09ae\u09a1\u09c7\u09b2 <b>{{ cfg.active_model }}</b> \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u0995\u09b0\u09be \u09a8\u09c7\u0987\u0964 \u09a8\u09bf\u099a\u09c7\u09b0 \u09b2\u09bf\u09b8\u09cd\u099f\u09c7 \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09c7 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u0995\u09b0\u09c1\u09a8, \u09a8\u0987\u09b2\u09c7 \u0987\u0989\u099c\u09be\u09b0 \u0989\u09a4\u09cd\u09a4\u09b0 \u09aa\u09be\u09ac\u09c7 \u09a8\u09be\u0964</div>{% endif %}
+{% if err.text %}<div class="card" style="border:1px solid #f59e0b">\u09b8\u09b0\u09cd\u09ac\u09b6\u09c7\u09b7 \u09a4\u09cd\u09b0\u09c1\u099f\u09bf:<br><small style="white-space:pre-wrap">{{ err.text }}</small></div>{% endif %}
+
 <h2>\u09ae\u09a1\u09c7\u09b2 (\u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7\u0987 \u099a\u09be\u09b2\u09c1)</h2>
 <div class="card">
 <input id="msearch" placeholder="\U0001f50d \u09ae\u09a1\u09c7\u09b2 \u0996\u09c1\u0981\u099c\u09c1\u09a8 (\u09af\u09c7\u09ae\u09a8: qwen, 12b)" style="margin-bottom:10px">
@@ -75,14 +79,18 @@ document.addEventListener("DOMContentLoaded",function(){
           <span class="bar" style="display:block"><span style="display:block;height:100%;background:#22c55e;width:{{ pr.get('pct', 0) }}%"></span></span>
           {% if pr.get("stage") %}{{ pr.get("stage") }} \u00b7 {% endif %}\u09b6\u09c7\u09b7 \u09b9\u09b2\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7
           {% elif m == cfg.active_model %}\u098f\u0996\u09a8 \u098f\u0987 \u09ae\u09a1\u09c7\u09b2 \u0995\u09a5\u09be \u09ac\u09b2\u099b\u09c7
-          {% elif m in inst %}\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u0986\u099b\u09c7, \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7
+          {% elif m in inst %}\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u0986\u099b\u09c7{% if sizes.get(m) %} ({{ sizes[m] }}){% endif %}, \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7
           {% else %}\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u09a8\u09c7\u0987, \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09b9\u09af\u09bc\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7{% endif %}
           {% if pulls.get(m, "").startswith("\u09ac\u09cd\u09af\u09b0\u09cd\u09a5") %}<br>\u274c {{ pulls[m] }}{% endif %}
         </small>
       </button>
     </form>
-    {% if m != cfg.active_model %}
-    <form method="post" action="/remove"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="red" style="height:100%">\u2715</button></form>
+    {% if pulls.get(m, "").startswith("\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1") %}
+    <form method="post" action="/cancel"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="gray" style="height:100%">\u23f9 \u09ac\u09a8\u09cd\u09a7</button></form>
+    {% elif m in inst and m != cfg.active_model %}
+    <form method="post" action="/delete" onsubmit="return confirm('\u098f\u0987 \u09ae\u09a1\u09c7\u09b2 \u09b8\u09be\u09b0\u09cd\u09ad\u09be\u09b0 \u09a5\u09c7\u0995\u09c7 \u09ae\u09c1\u099b\u09c7 \u09ab\u09c7\u09b2\u09ac\u09c7\u09a8? \u09b2\u09bf\u09b8\u09cd\u099f\u09c7 \u09a5\u09be\u0995\u09ac\u09c7, \u09aa\u09b0\u09c7 \u0986\u09ac\u09be\u09b0 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u0995\u09b0\u09be \u09af\u09be\u09ac\u09c7\u0964')"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="red" style="height:100%">\U0001f5d1 \u09ae\u09c1\u099b\u09c1\u09a8</button></form>
+    {% elif m not in inst and m != cfg.active_model %}
+    <form method="post" action="/remove" onsubmit="return confirm('\u09b2\u09bf\u09b8\u09cd\u099f \u09a5\u09c7\u0995\u09c7 \u09b8\u09b0\u09be\u09ac\u09c7\u09a8?')"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="gray" style="height:100%">\u2715</button></form>
     {% endif %}
   </div>
 {% endfor %}
@@ -162,6 +170,15 @@ def auth_link(token):
     return render_template_string(LOGIN, err=EXPIRED, has_pw=False), 403
 
 
+MSGS = {
+    "cancelled": "\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09ac\u09a8\u09cd\u09a7 \u0995\u09b0\u09be \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u0986\u09ac\u09be\u09b0 \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u09af\u09c7\u0996\u09be\u09a8\u09c7 \u09a5\u09c7\u09ae\u09c7\u099b\u09bf\u09b2 \u09b8\u09c7\u0996\u09be\u09a8 \u09a5\u09c7\u0995\u09c7 \u099a\u09b2\u09ac\u09c7\u0964",
+    "deleted": "\u09ae\u09a1\u09c7\u09b2 \u09b8\u09be\u09b0\u09cd\u09ad\u09be\u09b0 \u09a5\u09c7\u0995\u09c7 \u09ae\u09c1\u099b\u09c7 \u09ab\u09c7\u09b2\u09be \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u09b2\u09bf\u09b8\u09cd\u099f\u09c7 \u0986\u099b\u09c7, \u099a\u09be\u0987\u09b2\u09c7 \u0986\u09ac\u09be\u09b0 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7\u09a8\u0964",
+    "active": "\u098f\u0996\u09a8 \u099a\u09be\u09b2\u09c1 \u09a5\u09be\u0995\u09be \u09ae\u09a1\u09c7\u09b2 \u09ae\u09cb\u099b\u09be \u09af\u09be\u09af\u09bc \u09a8\u09be\u0964 \u0986\u0997\u09c7 \u0985\u09a8\u09cd\u09af \u098f\u0995\u099f\u09be \u09ae\u09a1\u09c7\u09b2 \u099a\u09be\u09b2\u09c1 \u0995\u09b0\u09c1\u09a8\u0964",
+    "failed": "\u09ae\u09cb\u099b\u09be \u09af\u09be\u09af\u09bc\u09a8\u09bf\u0964 Ollama \u099a\u09be\u09b2\u09c1 \u0986\u099b\u09c7 \u0995\u09bf \u09a8\u09be \u09a6\u09c7\u0996\u09c1\u09a8\u0964",
+    "nodl": "\u098f\u0987 \u09ae\u09a1\u09c7\u09b2\u09c7\u09b0 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u099a\u09b2\u099b\u09c7 \u09a8\u09be\u0964",
+}
+
+
 def _csrf():
     if "csrf" not in session:
         session["csrf"] = secrets.token_hex(16)
@@ -202,14 +219,18 @@ def logout():
 @app.route("/")
 def index():
     cfg = config.load()
+    sizes = llm.installed_sizes(cfg)
     return render_template_string(
         PAGE,
         cfg=cfg,
-        inst=llm.installed(cfg),
+        inst=set(sizes),
+        sizes=sizes,
+        msg=MSGS.get(request.args.get("m", ""), ""),
         up=llm.ollama_up(cfg),
         users=memory.count(),
         pulls=llm.PULLS,
         prog=llm.PROGRESS,
+        err=llm.LAST_ERROR,
         downloading=any(v.startswith("\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1") for v in llm.PULLS.values()),
         csrf=_csrf(),
     )
@@ -250,6 +271,22 @@ def remove():
 def pull():
     llm.pull(config.load(), request.form["name"].strip())
     return redirect("/")
+
+
+@app.route("/cancel", methods=["POST"])
+def cancel_dl():
+    ok = llm.cancel(request.form["name"].strip())
+    return redirect("/?m=" + ("cancelled" if ok else "nodl"))
+
+
+@app.route("/delete", methods=["POST"])
+def delete_model():
+    cfg = config.load()
+    name = request.form["name"].strip()
+    if name == cfg["active_model"]:
+        return redirect("/?m=active")
+    ok = llm.delete(cfg, name)
+    return redirect("/?m=" + ("deleted" if ok else "failed"))
 
 
 @app.route("/settings", methods=["POST"])
