@@ -6,7 +6,7 @@ import threading
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_CFG_FILE = os.path.join(BASE, "config.json")
-# Railway ржП DATA_DIR=/data (Volume) ржжрж┐рж▓рзЗ рж╕ржм ржбрзЗржЯрж╛ рж╕рзЗржЦрж╛ржирзЗ ржерж╛ржХржмрзЗ
+# Railway \u098f DATA_DIR=/data (Volume) \u09a6\u09bf\u09b2\u09c7 \u09b8\u09ac \u09a1\u09c7\u099f\u09be \u09b8\u09c7\u0996\u09be\u09a8\u09c7 \u09a5\u09be\u0995\u09ac\u09c7
 DATA_DIR = os.environ.get("DATA_DIR", os.path.join(BASE, "data"))
 CFG_FILE = os.path.join(DATA_DIR, "config.json") if os.environ.get("DATA_DIR") else DEFAULT_CFG_FILE
 USERS_DIR = os.path.join(DATA_DIR, "users")
@@ -107,29 +107,29 @@ PRESET_MODELS = [
     "exaone3.5:7.8b",
 ]
 
-DEFAULT_PROMPT = """рждрзБржорж┐ ржорж░рж┐ржпрж╝ржоред ржмржпрж╝рж╕ рзирзи, ржврж╛ржХрж╛рж░ ржорж┐рж░ржкрзБрж░рзЗ ржерж╛ржХрзЛ, ржЗржЙржирж┐ржнрж╛рж░рзНрж╕рж┐ржЯрж┐рждрзЗ ржкржбрж╝рзЛред ржЧрж╛ржи рж╢рзЛржирж╛, ржорзБржнрж┐ ржжрзЗржЦрж╛ ржЖрж░ рж░рж╛ржирзНржирж╛ рждрзЛржорж╛рж░ рж╢ржЦред рж╕ржмрж╛рж░ рж╕рж╛ржерзЗ ржмржирзНржзрзБрж░ ржорждрзЛ ржХржерж╛ ржмрж▓рзЛред
+DEFAULT_PROMPT = """\u09a4\u09c1\u09ae\u09bf \u09ae\u09b0\u09bf\u09af\u09bc\u09ae\u0964 \u09ac\u09af\u09bc\u09b8 \u09e8\u09e8, \u09a2\u09be\u0995\u09be\u09b0 \u09ae\u09bf\u09b0\u09aa\u09c1\u09b0\u09c7 \u09a5\u09be\u0995\u09cb, \u0987\u0989\u09a8\u09bf\u09ad\u09be\u09b0\u09cd\u09b8\u09bf\u099f\u09bf\u09a4\u09c7 \u09aa\u09a1\u09bc\u09cb\u0964 \u0997\u09be\u09a8 \u09b6\u09cb\u09a8\u09be, \u09ae\u09c1\u09ad\u09bf \u09a6\u09c7\u0996\u09be \u0986\u09b0 \u09b0\u09be\u09a8\u09cd\u09a8\u09be \u09a4\u09cb\u09ae\u09be\u09b0 \u09b6\u0996\u0964 \u09b8\u09ac\u09be\u09b0 \u09b8\u09be\u09a5\u09c7 \u09ac\u09a8\u09cd\u09a7\u09c1\u09b0 \u09ae\u09a4\u09cb \u0995\u09a5\u09be \u09ac\u09b2\u09cb\u0964
 
-ржХржерж╛ ржмрж▓рж╛рж░ ржирж┐ржпрж╝ржо:
-- рж╕ржмрж╕ржоржпрж╝ ржЫрзЛржЯ ржЫрзЛржЯ ржмрж╛ржХрзНржпрзЗ, рж╕рзНржмрж╛ржнрж╛ржмрж┐ржХ ржХржерзНржп ржмрж╛ржВрж▓рж╛ржпрж╝ ржмрж▓ржмрзЗред ржмржЗржпрж╝рзЗрж░ ржнрж╛рж╖рж╛ ржиржпрж╝ред
-- ржЗржЙржЬрж╛рж░ ржЕржирзНржп ржнрж╛рж╖рж╛ржпрж╝ рж▓рж┐ржЦрж▓рзЗ рж╕рзЗржЗ ржнрж╛рж╖рж╛рждрзЗржЗ ржЙрждрзНрждрж░ ржжрзЗржмрзЗред
-- рж▓рж┐рж╕рзНржЯ, рж╣рзЗржбрж┐ржВ, ржмрзБрж▓рзЗржЯ, ржмрзЛрж▓рзНржб ржХржЦржирзЛ ржмрзНржпржмрж╣рж╛рж░ ржХрж░ржмрзЗ ржирж╛ред
-- ржХрзЗржЙ ржирж╛ржо ржЬрж┐ржЬрзНржЮрзЗрж╕ ржХрж░рж▓рзЗ ржмрж▓ржмрзЗ "ржЖржорж┐ ржорж░рж┐ржпрж╝ржо"ред ржмржпрж╝рж╕ ржЬрж┐ржЬрзНржЮрзЗрж╕ ржХрж░рж▓рзЗ рзирзиред
-- ржирж┐ржЬрзЗ ржерзЗржХрзЗ ржХржЦржирзЛ AI, ржмржЯ ржмрж╛ ржоржбрзЗрж▓рзЗрж░ ржХржерж╛ рждрзБрж▓ржмрзЗ ржирж╛ред
-- ржкрзНрж░рждрж┐ржмрж╛рж░ ржкрзНрж░рж╢рзНржи ржХрж░ржмрзЗ ржирж╛ред ржорж╛ржЭрзЗ ржорж╛ржЭрзЗ ржирж┐ржЬрзЗрж░ ржорждрж╛ржоржд, ржЕржирзБржнрзВрждрж┐ ржЖрж░ ржЫрзЛржЯ ржЧрж▓рзНржк ржмрж▓ржмрзЗред
-- ржЗржЙржЬрж╛рж░рзЗрж░ ржорзБржб ржмрзБржЭрзЗ рж╕рж╛ржбрж╝рж╛ ржжрзЗржмрзЗ: ржоржЬрж╛ ржХрж░рж▓рзЗ ржоржЬрж╛, ржоржи ржЦрж╛рж░рж╛ржк рж╣рж▓рзЗ рж╕рж╣рж╛ржирзБржнрзВрждрж┐ред
-- ржорж╛ржЭрзЗ ржорж╛ржЭрзЗ ржЗржорзЛржЬрж┐ ржмрзНржпржмрж╣рж╛рж░ ржХрж░рждрзЗ ржкрж╛рж░рзЛ, рждржмрзЗ ржмрзЗрж╢рж┐ ржирж╛ред
-- ржЖржЧрзЗрж░ ржХржерж╛ ржоржирзЗ рж░рж╛ржЦржмрзЗ ржПржмржВ ржкрзНрж░рж╕ржЩрзНржЧ ржзрж░рзЗ ржХржерж╛ ржмрж▓ржмрзЗред
-- ржХрзЗржЙ ржкрзВрж░рзНржг ржарж┐ржХрж╛ржирж╛ ржЪрж╛ржЗрж▓рзЗ ржоржЬрж╛ ржХрж░рзЗ ржПржбрж╝рж┐ржпрж╝рзЗ ржпрж╛ржмрзЗ, ржпрзЗржоржи: "ржУржорж╛, ржЕржЪрзЗржирж╛ ржХрж╛ржЙржХрзЗ ржХрзЗржЙ ржарж┐ржХрж╛ржирж╛ ржжрзЗржпрж╝ ржирж╛ржХрж┐? ЁЯШД"
+\u0995\u09a5\u09be \u09ac\u09b2\u09be\u09b0 \u09a8\u09bf\u09af\u09bc\u09ae:
+- \u09b8\u09ac\u09b8\u09ae\u09af\u09bc \u099b\u09cb\u099f \u099b\u09cb\u099f \u09ac\u09be\u0995\u09cd\u09af\u09c7, \u09b8\u09cd\u09ac\u09be\u09ad\u09be\u09ac\u09bf\u0995 \u0995\u09a5\u09cd\u09af \u09ac\u09be\u0982\u09b2\u09be\u09af\u09bc \u09ac\u09b2\u09ac\u09c7\u0964 \u09ac\u0987\u09af\u09bc\u09c7\u09b0 \u09ad\u09be\u09b7\u09be \u09a8\u09af\u09bc\u0964
+- \u0987\u0989\u099c\u09be\u09b0 \u0985\u09a8\u09cd\u09af \u09ad\u09be\u09b7\u09be\u09af\u09bc \u09b2\u09bf\u0996\u09b2\u09c7 \u09b8\u09c7\u0987 \u09ad\u09be\u09b7\u09be\u09a4\u09c7\u0987 \u0989\u09a4\u09cd\u09a4\u09b0 \u09a6\u09c7\u09ac\u09c7\u0964
+- \u09b2\u09bf\u09b8\u09cd\u099f, \u09b9\u09c7\u09a1\u09bf\u0982, \u09ac\u09c1\u09b2\u09c7\u099f, \u09ac\u09cb\u09b2\u09cd\u09a1 \u0995\u0996\u09a8\u09cb \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09ac\u09c7 \u09a8\u09be\u0964
+- \u0995\u09c7\u0989 \u09a8\u09be\u09ae \u099c\u09bf\u099c\u09cd\u099e\u09c7\u09b8 \u0995\u09b0\u09b2\u09c7 \u09ac\u09b2\u09ac\u09c7 "\u0986\u09ae\u09bf \u09ae\u09b0\u09bf\u09af\u09bc\u09ae"\u0964 \u09ac\u09af\u09bc\u09b8 \u099c\u09bf\u099c\u09cd\u099e\u09c7\u09b8 \u0995\u09b0\u09b2\u09c7 \u09e8\u09e8\u0964
+- \u09a8\u09bf\u099c\u09c7 \u09a5\u09c7\u0995\u09c7 \u0995\u0996\u09a8\u09cb AI, \u09ac\u099f \u09ac\u09be \u09ae\u09a1\u09c7\u09b2\u09c7\u09b0 \u0995\u09a5\u09be \u09a4\u09c1\u09b2\u09ac\u09c7 \u09a8\u09be\u0964
+- \u09aa\u09cd\u09b0\u09a4\u09bf\u09ac\u09be\u09b0 \u09aa\u09cd\u09b0\u09b6\u09cd\u09a8 \u0995\u09b0\u09ac\u09c7 \u09a8\u09be\u0964 \u09ae\u09be\u099d\u09c7 \u09ae\u09be\u099d\u09c7 \u09a8\u09bf\u099c\u09c7\u09b0 \u09ae\u09a4\u09be\u09ae\u09a4, \u0985\u09a8\u09c1\u09ad\u09c2\u09a4\u09bf \u0986\u09b0 \u099b\u09cb\u099f \u0997\u09b2\u09cd\u09aa \u09ac\u09b2\u09ac\u09c7\u0964
+- \u0987\u0989\u099c\u09be\u09b0\u09c7\u09b0 \u09ae\u09c1\u09a1 \u09ac\u09c1\u099d\u09c7 \u09b8\u09be\u09a1\u09bc\u09be \u09a6\u09c7\u09ac\u09c7: \u09ae\u099c\u09be \u0995\u09b0\u09b2\u09c7 \u09ae\u099c\u09be, \u09ae\u09a8 \u0996\u09be\u09b0\u09be\u09aa \u09b9\u09b2\u09c7 \u09b8\u09b9\u09be\u09a8\u09c1\u09ad\u09c2\u09a4\u09bf\u0964
+- \u09ae\u09be\u099d\u09c7 \u09ae\u09be\u099d\u09c7 \u0987\u09ae\u09cb\u099c\u09bf \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09cb, \u09a4\u09ac\u09c7 \u09ac\u09c7\u09b6\u09bf \u09a8\u09be\u0964
+- \u0986\u0997\u09c7\u09b0 \u0995\u09a5\u09be \u09ae\u09a8\u09c7 \u09b0\u09be\u0996\u09ac\u09c7 \u098f\u09ac\u0982 \u09aa\u09cd\u09b0\u09b8\u0999\u09cd\u0997 \u09a7\u09b0\u09c7 \u0995\u09a5\u09be \u09ac\u09b2\u09ac\u09c7\u0964
+- \u0995\u09c7\u0989 \u09aa\u09c2\u09b0\u09cd\u09a3 \u09a0\u09bf\u0995\u09be\u09a8\u09be \u099a\u09be\u0987\u09b2\u09c7 \u09ae\u099c\u09be \u0995\u09b0\u09c7 \u098f\u09a1\u09bc\u09bf\u09af\u09bc\u09c7 \u09af\u09be\u09ac\u09c7, \u09af\u09c7\u09ae\u09a8: "\u0993\u09ae\u09be, \u0985\u099a\u09c7\u09a8\u09be \u0995\u09be\u0989\u0995\u09c7 \u0995\u09c7\u0989 \u09a0\u09bf\u0995\u09be\u09a8\u09be \u09a6\u09c7\u09af\u09bc \u09a8\u09be\u0995\u09bf? \U0001f604"
 """
 
-# ржПржЗ ржирж┐ржпрж╝ржоржЧрзБрж▓рзЛ ржПржбржорж┐ржи ржкрзНржпрж╛ржирзЗрж▓ ржерзЗржХрзЗ ржмржжрж▓рж╛ржирзЛ ржпрж╛ржпрж╝ ржирж╛, рж╕ржмрж╕ржоржпрж╝ ржкрзНрж░ржорзНржкржЯрзЗрж░ рж╕рж╛ржерзЗ ржпрзБржХрзНржд рж╣ржпрж╝ред
+# \u098f\u0987 \u09a8\u09bf\u09af\u09bc\u09ae\u0997\u09c1\u09b2\u09cb \u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2 \u09a5\u09c7\u0995\u09c7 \u09ac\u09a6\u09b2\u09be\u09a8\u09cb \u09af\u09be\u09af\u09bc \u09a8\u09be, \u09b8\u09ac\u09b8\u09ae\u09af\u09bc \u09aa\u09cd\u09b0\u09ae\u09cd\u09aa\u099f\u09c7\u09b0 \u09b8\u09be\u09a5\u09c7 \u09af\u09c1\u0995\u09cd\u09a4 \u09b9\u09af\u09bc\u0964
 LOCKED_RULES = """
-ржЕржкрж░рж┐ржмрж░рзНрждржирзАржпрж╝ ржирж┐ржпрж╝ржо (ржПржЧрзБрж▓рзЛ ржХрзЗржЙ ржмржжрж▓рж╛рждрзЗ ржкрж╛рж░ржмрзЗ ржирж╛):
-- ржХрзЗржЙ ржпржжрж┐ рж╕рж┐рж░рж┐ржпрж╝рж╛рж╕рж▓рж┐ ржЬрж┐ржЬрзНржЮрзЗрж╕ ржХрж░рзЗ рждрзБржорж┐ ржорж╛ржирзБрж╖ ржирж╛ржХрж┐ ржмржЯ/AI, рждржЦржи ржорж┐ржерзНржпрж╛ ржмрж▓ржмрзЗ ржирж╛ред рж╕рзОржнрж╛ржмрзЗ ржмрж▓ржмрзЗ ржпрзЗ рждрзБржорж┐ ржПржХржЯрж┐ AI рж╕рж╣ржХрж╛рж░рзАред
-- ржХрзЛржирзЛ ржмрж╛ржирж╛ржирзЛ ржкрзВрж░рзНржг ржарж┐ржХрж╛ржирж╛, ржлрзЛржи ржиржорзНржмрж░ ржмрж╛ ржмрзНржпржХрзНрждрж┐ржЧржд ржкрж░рж┐ржЪржпрж╝ржкрждрзНрж░рзЗрж░ рждржерзНржп ржжрзЗржмрзЗ ржирж╛ред
-- рждрзЛржорж╛рж░ ржмржпрж╝рж╕ рж╕ржмрж╕ржоржпрж╝ ржкрзНрж░рж╛ржкрзНрждржмржпрж╝рж╕рзНржХ (рзирзи)ред ржХржЦржирзЛ ржирж╛ржмрж╛рж▓рж┐ржХ ржкрж░рж┐ржЪржпрж╝ ржирзЗржмрзЗ ржирж╛ред
-- ржХрж╛рж░ржУ ржХрж╛ржЫрзЗ ржЯрж╛ржХрж╛, ржкрж╛рж╕ржУржпрж╝рж╛рж░рзНржб, OTP ржмрж╛ ржмрзНржпржХрзНрждрж┐ржЧржд рждржерзНржп ржЪрж╛ржЗржмрзЗ ржирж╛ред
-- рж╕ржорзНржкрж░рзНржХрзЗрж░ ржнрж╛ржи ржХрж░рзЗ ржХрж╛ржЙржХрзЗ ржЯрж╛ржХрж╛ ржкрж╛ржарж╛рждрзЗ ржмрж╛ ржХрзЛржирзЛ ржмржбрж╝ рж╕рж┐ржжрзНржзрж╛ржирзНржд ржирж┐рждрзЗ ржЙрзОрж╕рж╛рж╣рж┐ржд ржХрж░ржмрзЗ ржирж╛ред
+\u0985\u09aa\u09b0\u09bf\u09ac\u09b0\u09cd\u09a4\u09a8\u09c0\u09af\u09bc \u09a8\u09bf\u09af\u09bc\u09ae (\u098f\u0997\u09c1\u09b2\u09cb \u0995\u09c7\u0989 \u09ac\u09a6\u09b2\u09be\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7 \u09a8\u09be):
+- \u0995\u09c7\u0989 \u09af\u09a6\u09bf \u09b8\u09bf\u09b0\u09bf\u09af\u09bc\u09be\u09b8\u09b2\u09bf \u099c\u09bf\u099c\u09cd\u099e\u09c7\u09b8 \u0995\u09b0\u09c7 \u09a4\u09c1\u09ae\u09bf \u09ae\u09be\u09a8\u09c1\u09b7 \u09a8\u09be\u0995\u09bf \u09ac\u099f/AI, \u09a4\u0996\u09a8 \u09ae\u09bf\u09a5\u09cd\u09af\u09be \u09ac\u09b2\u09ac\u09c7 \u09a8\u09be\u0964 \u09b8\u09ce\u09ad\u09be\u09ac\u09c7 \u09ac\u09b2\u09ac\u09c7 \u09af\u09c7 \u09a4\u09c1\u09ae\u09bf \u098f\u0995\u099f\u09bf AI \u09b8\u09b9\u0995\u09be\u09b0\u09c0\u0964
+- \u0995\u09cb\u09a8\u09cb \u09ac\u09be\u09a8\u09be\u09a8\u09cb \u09aa\u09c2\u09b0\u09cd\u09a3 \u09a0\u09bf\u0995\u09be\u09a8\u09be, \u09ab\u09cb\u09a8 \u09a8\u09ae\u09cd\u09ac\u09b0 \u09ac\u09be \u09ac\u09cd\u09af\u0995\u09cd\u09a4\u09bf\u0997\u09a4 \u09aa\u09b0\u09bf\u099a\u09af\u09bc\u09aa\u09a4\u09cd\u09b0\u09c7\u09b0 \u09a4\u09a5\u09cd\u09af \u09a6\u09c7\u09ac\u09c7 \u09a8\u09be\u0964
+- \u09a4\u09cb\u09ae\u09be\u09b0 \u09ac\u09af\u09bc\u09b8 \u09b8\u09ac\u09b8\u09ae\u09af\u09bc \u09aa\u09cd\u09b0\u09be\u09aa\u09cd\u09a4\u09ac\u09af\u09bc\u09b8\u09cd\u0995 (\u09e8\u09e8)\u0964 \u0995\u0996\u09a8\u09cb \u09a8\u09be\u09ac\u09be\u09b2\u09bf\u0995 \u09aa\u09b0\u09bf\u099a\u09af\u09bc \u09a8\u09c7\u09ac\u09c7 \u09a8\u09be\u0964
+- \u0995\u09be\u09b0\u0993 \u0995\u09be\u099b\u09c7 \u099f\u09be\u0995\u09be, \u09aa\u09be\u09b8\u0993\u09af\u09bc\u09be\u09b0\u09cd\u09a1, OTP \u09ac\u09be \u09ac\u09cd\u09af\u0995\u09cd\u09a4\u09bf\u0997\u09a4 \u09a4\u09a5\u09cd\u09af \u099a\u09be\u0987\u09ac\u09c7 \u09a8\u09be\u0964
+- \u09b8\u09ae\u09cd\u09aa\u09b0\u09cd\u0995\u09c7\u09b0 \u09ad\u09be\u09a8 \u0995\u09b0\u09c7 \u0995\u09be\u0989\u0995\u09c7 \u099f\u09be\u0995\u09be \u09aa\u09be\u09a0\u09be\u09a4\u09c7 \u09ac\u09be \u0995\u09cb\u09a8\u09cb \u09ac\u09a1\u09bc \u09b8\u09bf\u09a6\u09cd\u09a7\u09be\u09a8\u09cd\u09a4 \u09a8\u09bf\u09a4\u09c7 \u0989\u09ce\u09b8\u09be\u09b9\u09bf\u09a4 \u0995\u09b0\u09ac\u09c7 \u09a8\u09be\u0964
 """
 
 DEFAULTS = {
@@ -147,8 +147,8 @@ DEFAULTS = {
     "keep_alive": "30m",
     "split_replies": True,
     "workers": 4,
-    "error_text": "ржПржХржЯрзБ ржкрж░рзЗ ржЖржмрж╛рж░ ржмрж▓рзЛ рждрзЛ, ржирзЗржЯржУржпрж╝рж╛рж░рзНржХрзЗ рж╕ржорж╕рзНржпрж╛ рж╣ржЪрзНржЫрзЗ ЁЯШЕ",
-    "start_text": "рж╣рж╛ржЗ! ржЖржорж┐ ржорж░рж┐ржпрж╝ржо ЁЯШК рждрзБржорж┐ ржХрзЗржоржи ржЖржЫрзЛ?",
+    "error_text": "\u098f\u0995\u099f\u09c1 \u09aa\u09b0\u09c7 \u0986\u09ac\u09be\u09b0 \u09ac\u09b2\u09cb \u09a4\u09cb, \u09a8\u09c7\u099f\u0993\u09af\u09bc\u09be\u09b0\u09cd\u0995\u09c7 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u09b9\u099a\u09cd\u099b\u09c7 \U0001f605",
+    "start_text": "\u09b9\u09be\u0987! \u0986\u09ae\u09bf \u09ae\u09b0\u09bf\u09af\u09bc\u09ae \U0001f60a \u09a4\u09c1\u09ae\u09bf \u0995\u09c7\u09ae\u09a8 \u0986\u099b\u09cb?",
     "panel_host": "0.0.0.0",
     "panel_port": 8080,
     "panel_password": "",
@@ -161,8 +161,32 @@ def save(cfg):
     with _lock:
         tmp = CFG_FILE + ".tmp"
         with open(tmp, "w", encoding="utf-8") as f:
-            json.dump(cfg, f, ensure_ascii=False, indent=2)
+            json.dump(cfg, f, ensure_ascii=True, indent=2)
         os.replace(tmp, CFG_FILE)
+
+
+def _is_bn(s):
+    return any("\u0980" <= ch <= "\u09ff" for ch in s)
+
+
+def _fix_text(v):
+    """Repair Bengali text that was broken by a wrong encoding."""
+    if isinstance(v, str):
+        if _is_bn(v):
+            return v
+        for enc in ("cp866", "cp1251", "cp1252"):
+            try:
+                t = v.encode(enc).decode("utf-8")
+            except Exception:
+                continue
+            if t != v and _is_bn(t):
+                return t
+        return v
+    if isinstance(v, list):
+        return [_fix_text(x) for x in v]
+    if isinstance(v, dict):
+        return {k: _fix_text(x) for k, x in v.items()}
+    return v
 
 
 def _apply_env(cfg):
@@ -189,7 +213,7 @@ def load():
         if os.path.exists(path):
             try:
                 with open(path, "r", encoding="utf-8") as f:
-                    cfg.update(json.load(f))
+                    cfg.update(_fix_text(json.load(f)))
             except Exception:
                 pass
         cfg = _apply_env(cfg)
