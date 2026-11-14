@@ -4,7 +4,7 @@ import time
 
 _tokens = {}
 _lock = threading.Lock()
-TTL = 300  # সেকেন্ড
+TTL = 300  # \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1
 
 
 def create():
@@ -21,3 +21,9 @@ def consume(t):
     with _lock:
         exp = _tokens.pop(t, 0)
         return exp > time.time()
+
+
+def peek(t):
+    """Check a token without using it up."""
+    with _lock:
+        return _tokens.get(t, 0) > time.time()
