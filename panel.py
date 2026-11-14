@@ -134,14 +134,32 @@ button{background:#3b82f6;border:0}.box{max-width:320px}</style></head><body><di
 """
 
 
-@app.route("/auth/<token>")
+CONFIRM = """
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>body{font-family:sans-serif;background:#0f1115;color:#eee;display:flex;justify-content:center;padding:80px 16px}
+button{display:block;width:260px;margin:12px 0;padding:14px;border-radius:8px;border:0;background:#3b82f6;color:#fff;font-size:16px}
+.box{max-width:320px;text-align:center}</style></head><body><div class="box">
+<h3>\u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2</h3>
+<form method="post"><button>\u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2\u09c7 \u09a2\u09c1\u0995\u09c1\u09a8</button></form>
+</div></body></html>
+"""
+
+EXPIRED = "\u09b2\u09bf\u0982\u0995\u09c7\u09b0 \u09ae\u09c7\u09af\u09bc\u09be\u09a6 \u09b6\u09c7\u09b7 \u09ac\u09be \u0986\u0997\u09c7\u0987 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u09ac\u099f\u09c7 \u0986\u09ac\u09be\u09b0 /panel \u09b2\u09bf\u0996\u09c1\u09a8\u0964"
+
+
+@app.route("/auth/<token>", methods=["GET", "POST"])
 def auth_link(token):
+    # GET \u09b6\u09c1\u09a7\u09c1 \u09ac\u09be\u099f\u09a8 \u09a6\u09c7\u0996\u09be\u09af\u09bc (\u099f\u09c7\u09b2\u09bf\u0997\u09cd\u09b0\u09be\u09ae \u09aa\u09cd\u09b0\u09bf\u09ad\u09bf\u0989 \u09b2\u09bf\u0982\u0995 \u09a8\u09b7\u09cd\u099f \u0995\u09b0\u09a4\u09c7 \u09aa\u09be\u09b0\u09ac\u09c7 \u09a8\u09be), POST \u098f \u09b2\u0997\u0987\u09a8 \u09b9\u09af\u09bc
+    if request.method == "GET":
+        if auth.peek(token):
+            return render_template_string(CONFIRM)
+        return render_template_string(LOGIN, err=EXPIRED, has_pw=False), 403
     if auth.consume(token):
         session.permanent = True
         session["auth"] = True
         _csrf()
         return redirect("/")
-    return render_template_string(LOGIN, err="\u09b2\u09bf\u0982\u0995\u09c7\u09b0 \u09ae\u09c7\u09af\u09bc\u09be\u09a6 \u09b6\u09c7\u09b7 \u09ac\u09be \u0986\u0997\u09c7\u0987 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u09ac\u099f\u09c7 \u0986\u09ac\u09be\u09b0 /panel \u09b2\u09bf\u0996\u09c1\u09a8\u0964", has_pw=False), 403
+    return render_template_string(LOGIN, err=EXPIRED, has_pw=False), 403
 
 
 def _csrf():
