@@ -16,7 +16,7 @@ PAGE = """
 <!doctype html>
 <html lang="bn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ржПржбржорж┐ржи ржкрзНржпрж╛ржирзЗрж▓</title>
+<title>\u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2</title>
 {% if downloading %}<meta http-equiv="refresh" content="3">{% endif %}
 <style>
 body{font-family:sans-serif;background:#0f1115;color:#e8e8e8;margin:0;padding:12px;max-width:760px;margin:auto}
@@ -42,16 +42,16 @@ a{color:#93c5fd}
 .bar{height:8px;background:#0f1115;border-radius:5px;margin:6px 0;overflow:hidden}
 .bar div{height:100%;background:#22c55e;transition:width .5s}
 </style></head><body>
-<h2>ЁЯдЦ ржорж░рж┐ржпрж╝ржо ржмржЯ ржПржбржорж┐ржи ржкрзНржпрж╛ржирзЗрж▓</h2>
+<h2>\U0001f916 \u09ae\u09b0\u09bf\u09af\u09bc\u09ae \u09ac\u099f \u098f\u09a1\u09ae\u09bf\u09a8 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2</h2>
 <div class="card">
-  ржЪрж╛рж▓рзБ ржоржбрзЗрж▓: <b>{{ cfg.active_model }}</b><br>
-  Ollama: {{ "ржЪрж╛рж▓рзБ тЬЕ" if up else "ржмржирзНржз тЭМ" }} &nbsp;|&nbsp; ржорзЛржЯ ржЗржЙржЬрж╛рж░: {{ users }}
-  <div style="float:right"><a href="/logout">рж▓ржЧржЖржЙржЯ</a></div>
+  \u099a\u09be\u09b2\u09c1 \u09ae\u09a1\u09c7\u09b2: <b>{{ cfg.active_model }}</b><br>
+  Ollama: {{ "\u099a\u09be\u09b2\u09c1 \u2705" if up else "\u09ac\u09a8\u09cd\u09a7 \u274c" }} &nbsp;|&nbsp; \u09ae\u09cb\u099f \u0987\u0989\u099c\u09be\u09b0: {{ users }}
+  <div style="float:right"><a href="/logout">\u09b2\u0997\u0986\u0989\u099f</a></div>
 </div>
 
-<h2>ржоржбрзЗрж▓ (ржЯрзНржпрж╛ржк ржХрж░рж▓рзЗржЗ ржЪрж╛рж▓рзБ)</h2>
+<h2>\u09ae\u09a1\u09c7\u09b2 (\u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7\u0987 \u099a\u09be\u09b2\u09c1)</h2>
 <div class="card">
-<input id="msearch" placeholder="ЁЯФН ржоржбрзЗрж▓ ржЦрзБржБржЬрзБржи (ржпрзЗржоржи: qwen, 12b)" style="margin-bottom:10px">
+<input id="msearch" placeholder="\U0001f50d \u09ae\u09a1\u09c7\u09b2 \u0996\u09c1\u0981\u099c\u09c1\u09a8 (\u09af\u09c7\u09ae\u09a8: qwen, 12b)" style="margin-bottom:10px">
 <script>
 document.addEventListener("DOMContentLoaded",function(){
   var q=document.getElementById("msearch");
@@ -69,55 +69,55 @@ document.addEventListener("DOMContentLoaded",function(){
       <input type="hidden" name="csrf" value="{{ csrf }}">
       <input type="hidden" name="name" value="{{ m }}">
       <button class="mbtn {% if m == cfg.active_model %}active{% elif m not in inst %}dl{% endif %}">
-        {{ m }}{% if m == cfg.active_model %} тЬЕ{% endif %}
+        {{ m }}{% if m == cfg.active_model %} \u2705{% endif %}
         <small>
-          {% if pulls.get(m, "").startswith("ржбрж╛ржЙржирж▓рзЛржб") %}{% set pr = prog.get(m, {}) %}тП│ ржбрж╛ржЙржирж▓рзЛржб рж╣ржЪрзНржЫрзЗ: <b>{{ pr.get("pct", 0) }}%</b> ({{ pr.get("done_h", "0 MB") }} / {{ pr.get("total_h", "?") }}){% if pr.get("speed_h") %} ┬╖ {{ pr.get("speed_h") }}{% endif %}
+          {% if pulls.get(m, "").startswith("\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1") %}{% set pr = prog.get(m, {}) %}\u23f3 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09b9\u099a\u09cd\u099b\u09c7: <b>{{ pr.get("pct", 0) }}%</b> ({{ pr.get("done_h", "0 MB") }} / {{ pr.get("total_h", "?") }}){% if pr.get("speed_h") %} \u00b7 {{ pr.get("speed_h") }}{% endif %}
           <span class="bar" style="display:block"><span style="display:block;height:100%;background:#22c55e;width:{{ pr.get('pct', 0) }}%"></span></span>
-          {% if pr.get("stage") %}{{ pr.get("stage") }} ┬╖ {% endif %}рж╢рзЗрж╖ рж╣рж▓рзЗ ржирж┐ржЬрзЗ ржЪрж╛рж▓рзБ рж╣ржмрзЗ
-          {% elif m == cfg.active_model %}ржПржЦржи ржПржЗ ржоржбрзЗрж▓ ржХржерж╛ ржмрж▓ржЫрзЗ
-          {% elif m in inst %}ржЗржирж╕рзНржЯрж▓ ржЖржЫрзЗ, ржЯрзНржпрж╛ржк ржХрж░рж▓рзЗ ржЪрж╛рж▓рзБ рж╣ржмрзЗ
-          {% else %}ржЗржирж╕рзНржЯрж▓ ржирзЗржЗ, ржЯрзНржпрж╛ржк ржХрж░рж▓рзЗ ржбрж╛ржЙржирж▓рзЛржб рж╣ржпрж╝рзЗ ржирж┐ржЬрзЗ ржЪрж╛рж▓рзБ рж╣ржмрзЗ{% endif %}
-          {% if pulls.get(m, "").startswith("ржмрзНржпрж░рзНрже") %}<br>тЭМ {{ pulls[m] }}{% endif %}
+          {% if pr.get("stage") %}{{ pr.get("stage") }} \u00b7 {% endif %}\u09b6\u09c7\u09b7 \u09b9\u09b2\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7
+          {% elif m == cfg.active_model %}\u098f\u0996\u09a8 \u098f\u0987 \u09ae\u09a1\u09c7\u09b2 \u0995\u09a5\u09be \u09ac\u09b2\u099b\u09c7
+          {% elif m in inst %}\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u0986\u099b\u09c7, \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7
+          {% else %}\u0987\u09a8\u09b8\u09cd\u099f\u09b2 \u09a8\u09c7\u0987, \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7 \u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1 \u09b9\u09af\u09bc\u09c7 \u09a8\u09bf\u099c\u09c7 \u099a\u09be\u09b2\u09c1 \u09b9\u09ac\u09c7{% endif %}
+          {% if pulls.get(m, "").startswith("\u09ac\u09cd\u09af\u09b0\u09cd\u09a5") %}<br>\u274c {{ pulls[m] }}{% endif %}
         </small>
       </button>
     </form>
     {% if m != cfg.active_model %}
-    <form method="post" action="/remove"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="red" style="height:100%">тЬХ</button></form>
+    <form method="post" action="/remove"><input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="name" value="{{ m }}"><button class="red" style="height:100%">\u2715</button></form>
     {% endif %}
   </div>
 {% endfor %}
-  <details style="margin-top:10px"><summary>ржЕржирзНржп ржоржбрзЗрж▓ ржпрзЛржЧ ржХрж░рждрзЗ ржЪрж╛ржи?</summary>
+  <details style="margin-top:10px"><summary>\u0985\u09a8\u09cd\u09af \u09ae\u09a1\u09c7\u09b2 \u09af\u09cb\u0997 \u0995\u09b0\u09a4\u09c7 \u099a\u09be\u09a8?</summary>
     <form method="post" action="/add" class="flex" style="margin-top:8px">
       <input type="hidden" name="csrf" value="{{ csrf }}">
-      <input name="name" placeholder="ржпрзЗржоржи: gemma3:12b" required>
-      <button>ржпрзЛржЧ</button>
+      <input name="name" placeholder="\u09af\u09c7\u09ae\u09a8: gemma3:12b" required>
+      <button>\u09af\u09cb\u0997</button>
     </form>
   </details>
 </div>
 
-<h2>рж╕рзЗржЯрж┐ржВрж╕</h2>
+<h2>\u09b8\u09c7\u099f\u09bf\u0982\u09b8</h2>
 <form method="post" action="/settings" class="card">
   <input type="hidden" name="csrf" value="{{ csrf }}">
   <div class="grid">
     <label>Temperature<input name="temperature" value="{{ cfg.temperature }}"></label>
-    <label>ржорзЗржорзЛрж░рж┐ (ржорзЗрж╕рзЗржЬ рж╕ржВржЦрзНржпрж╛)<input name="max_history" value="{{ cfg.max_history }}"></label>
+    <label>\u09ae\u09c7\u09ae\u09cb\u09b0\u09bf (\u09ae\u09c7\u09b8\u09c7\u099c \u09b8\u0982\u0996\u09cd\u09af\u09be)<input name="max_history" value="{{ cfg.max_history }}"></label>
     <label>Context (num_ctx)<input name="num_ctx" value="{{ cfg.num_ctx }}"></label>
-    <label>рж╕рж░рзНржмрзЛржЪрзНржЪ ржЙрждрзНрждрж░ ржЯрзЛржХрзЗржи<input name="num_predict" value="{{ cfg.num_predict }}"></label>
-    <label>Timeout (рж╕рзЗржХрзЗржирзНржб)<input name="timeout" value="{{ cfg.timeout }}"></label>
+    <label>\u09b8\u09b0\u09cd\u09ac\u09cb\u099a\u09cd\u099a \u0989\u09a4\u09cd\u09a4\u09b0 \u099f\u09cb\u0995\u09c7\u09a8<input name="num_predict" value="{{ cfg.num_predict }}"></label>
+    <label>Timeout (\u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1)<input name="timeout" value="{{ cfg.timeout }}"></label>
     <label>Keep alive<input name="keep_alive" value="{{ cfg.keep_alive }}"></label>
   </div>
-  <label style="display:block;margin:8px 0"><input type="checkbox" name="split_replies" style="width:auto" {% if cfg.split_replies %}checked{% endif %}> ржЙрждрзНрждрж░ ржЫрзЛржЯ ржЫрзЛржЯ ржорзЗрж╕рзЗржЬрзЗ ржнрзЗржЩрзЗ ржкрж╛ржарж╛ржУ</label>
-  <label>Start ржорзЗрж╕рзЗржЬ<input name="start_text" value="{{ cfg.start_text }}"></label>
-  <label>Error ржорзЗрж╕рзЗржЬ<input name="error_text" value="{{ cfg.error_text }}"></label>
-  <button style="margin-top:10px">рж╕рзЗржн</button>
+  <label style="display:block;margin:8px 0"><input type="checkbox" name="split_replies" style="width:auto" {% if cfg.split_replies %}checked{% endif %}> \u0989\u09a4\u09cd\u09a4\u09b0 \u099b\u09cb\u099f \u099b\u09cb\u099f \u09ae\u09c7\u09b8\u09c7\u099c\u09c7 \u09ad\u09c7\u0999\u09c7 \u09aa\u09be\u09a0\u09be\u0993</label>
+  <label>Start \u09ae\u09c7\u09b8\u09c7\u099c<input name="start_text" value="{{ cfg.start_text }}"></label>
+  <label>Error \u09ae\u09c7\u09b8\u09c7\u099c<input name="error_text" value="{{ cfg.error_text }}"></label>
+  <button style="margin-top:10px">\u09b8\u09c7\u09ad</button>
 </form>
 
-<h2>рж╕рж┐рж╕рзНржЯрзЗржо ржкрзНрж░ржорзНржкржЯ (ржЪрж░рж┐рждрзНрж░)</h2>
+<h2>\u09b8\u09bf\u09b8\u09cd\u099f\u09c7\u09ae \u09aa\u09cd\u09b0\u09ae\u09cd\u09aa\u099f (\u099a\u09b0\u09bf\u09a4\u09cd\u09b0)</h2>
 <form method="post" action="/prompt" class="card">
   <input type="hidden" name="csrf" value="{{ csrf }}">
   <textarea name="prompt">{{ cfg.system_prompt }}</textarea>
-  <p style="font-size:12px;color:#94a3b8">рж╕рждрждрж╛ ржУ ржирж┐рж░рж╛ржкрждрзНрждрж╛рж░ ржХрж┐ржЫрзБ ржирж┐ржпрж╝ржо ржХрзЛржбрзЗ рж▓ржХ ржХрж░рж╛ ржЖржЫрзЗ, рж╕рзЗржЧрзБрж▓рзЛ ржПржЦрж╛ржи ржерзЗржХрзЗ ржмржжрж▓рж╛ржпрж╝ ржирж╛ред</p>
-  <button>ржкрзНрж░ржорзНржкржЯ рж╕рзЗржн</button>
+  <p style="font-size:12px;color:#94a3b8">\u09b8\u09a4\u09a4\u09be \u0993 \u09a8\u09bf\u09b0\u09be\u09aa\u09a4\u09cd\u09a4\u09be\u09b0 \u0995\u09bf\u099b\u09c1 \u09a8\u09bf\u09af\u09bc\u09ae \u0995\u09cb\u09a1\u09c7 \u09b2\u0995 \u0995\u09b0\u09be \u0986\u099b\u09c7, \u09b8\u09c7\u0997\u09c1\u09b2\u09cb \u098f\u0996\u09be\u09a8 \u09a5\u09c7\u0995\u09c7 \u09ac\u09a6\u09b2\u09be\u09af\u09bc \u09a8\u09be\u0964</p>
+  <button>\u09aa\u09cd\u09b0\u09ae\u09cd\u09aa\u099f \u09b8\u09c7\u09ad</button>
 </form>
 </body></html>
 """
@@ -127,9 +127,9 @@ LOGIN = """
 <style>body{font-family:sans-serif;background:#0f1115;color:#eee;display:flex;justify-content:center;padding:60px 16px}
 input,button{display:block;width:260px;margin:8px 0;padding:10px;border-radius:6px;border:1px solid #333;background:#1a1d24;color:#eee}
 button{background:#3b82f6;border:0}.box{max-width:320px}</style></head><body><div class="box">
-<h3>ржПржбржорж┐ржи рж▓ржЧржЗржи</h3>
-<p>ржЯрзЗрж▓рж┐ржЧрзНрж░рж╛ржорзЗ ржмржЯржХрзЗ <b>/panel</b> рж▓рж┐ржЦрзЗ ржкрж╛ржарж╛ржиред ржпрзЗ рж▓рж┐ржВржХ ржЖрж╕ржмрзЗ рж╕рзЗржЯрж╛ ржЯрзНржпрж╛ржк ржХрж░рж▓рзЗржЗ ржкрзНржпрж╛ржирзЗрж▓ ржЦрзБрж▓ржмрзЗред</p>
-{% if has_pw %}<form method="post"><input type="password" name="password" placeholder="ржЕржержмрж╛ ржкрж╛рж╕ржУржпрж╝рж╛рж░рзНржб"><button>рж▓ржЧржЗржи</button></form>{% endif %}
+<h3>\u098f\u09a1\u09ae\u09bf\u09a8 \u09b2\u0997\u0987\u09a8</h3>
+<p>\u099f\u09c7\u09b2\u09bf\u0997\u09cd\u09b0\u09be\u09ae\u09c7 \u09ac\u099f\u0995\u09c7 <b>/panel</b> \u09b2\u09bf\u0996\u09c7 \u09aa\u09be\u09a0\u09be\u09a8\u0964 \u09af\u09c7 \u09b2\u09bf\u0982\u0995 \u0986\u09b8\u09ac\u09c7 \u09b8\u09c7\u099f\u09be \u099f\u09cd\u09af\u09be\u09aa \u0995\u09b0\u09b2\u09c7\u0987 \u09aa\u09cd\u09af\u09be\u09a8\u09c7\u09b2 \u0996\u09c1\u09b2\u09ac\u09c7\u0964</p>
+{% if has_pw %}<form method="post"><input type="password" name="password" placeholder="\u0985\u09a5\u09ac\u09be \u09aa\u09be\u09b8\u0993\u09af\u09bc\u09be\u09b0\u09cd\u09a1"><button>\u09b2\u0997\u0987\u09a8</button></form>{% endif %}
 <p style="color:#f87171">{{ err }}</p></div></body></html>
 """
 
@@ -141,7 +141,7 @@ def auth_link(token):
         session["auth"] = True
         _csrf()
         return redirect("/")
-    return render_template_string(LOGIN, err="рж▓рж┐ржВржХрзЗрж░ ржорзЗржпрж╝рж╛ржж рж╢рзЗрж╖ ржмрж╛ ржЖржЧрзЗржЗ ржмрзНржпржмрж╣рж╛рж░ рж╣ржпрж╝рзЗржЫрзЗред ржмржЯрзЗ ржЖржмрж╛рж░ /panel рж▓рж┐ржЦрзБржиред", has_pw=False), 403
+    return render_template_string(LOGIN, err="\u09b2\u09bf\u0982\u0995\u09c7\u09b0 \u09ae\u09c7\u09af\u09bc\u09be\u09a6 \u09b6\u09c7\u09b7 \u09ac\u09be \u0986\u0997\u09c7\u0987 \u09ac\u09cd\u09af\u09ac\u09b9\u09be\u09b0 \u09b9\u09af\u09bc\u09c7\u099b\u09c7\u0964 \u09ac\u099f\u09c7 \u0986\u09ac\u09be\u09b0 /panel \u09b2\u09bf\u0996\u09c1\u09a8\u0964", has_pw=False), 403
 
 
 def _csrf():
@@ -171,7 +171,7 @@ def login():
             session["auth"] = True
             _csrf()
             return redirect("/")
-        err = "ржнрзБрж▓ ржкрж╛рж╕ржУржпрж╝рж╛рж░рзНржб"
+        err = "\u09ad\u09c1\u09b2 \u09aa\u09be\u09b8\u0993\u09af\u09bc\u09be\u09b0\u09cd\u09a1"
     return render_template_string(LOGIN, err=err, has_pw=bool(pw))
 
 
@@ -192,7 +192,7 @@ def index():
         users=memory.count(),
         pulls=llm.PULLS,
         prog=llm.PROGRESS,
-        downloading=any(v.startswith("ржбрж╛ржЙржирж▓рзЛржб") for v in llm.PULLS.values()),
+        downloading=any(v.startswith("\u09a1\u09be\u0989\u09a8\u09b2\u09cb\u09a1") for v in llm.PULLS.values()),
         csrf=_csrf(),
     )
 
